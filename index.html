@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>测一测，你是绝望主妇里的谁?</title>
+<meta name="description" content="你以为你在经营生活，其实是生活一直在经营你。20 题，测出你在紫藤巷的位置。">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@400;600;700&family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@600;700&display=swap">
+<style>
+  :root{
+    --cream:#f6efe3;
+    --cream-2:#efe5d5;
+    --ink:#2b232a;
+    --ink-2:#5a4b57;
+    --plum:#5a2f45;
+    --wisteria:#8b77a6;
+    --sage:#6d7c67;
+    --line:rgba(90,47,69,.16);
+    --card:#fffaf2;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 50% -10%, #fbf6ec 0%, rgba(251,246,236,0) 60%),
+      radial-gradient(900px 900px at 110% 110%, rgba(139,119,166,.16) 0%, rgba(139,119,166,0) 55%),
+      var(--cream);
+    color:var(--ink);
+    font-family:"Noto Sans SC","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-weight:400;
+    line-height:1.7;
+    min-height:100vh;
+    display:block;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:520px;margin:0 auto;padding:clamp(28px,8vh,72px) 18px 40px;min-height:100vh;display:flex;flex-direction:column}
+  .serif{font-family:"Noto Serif SC","Songti SC",Georgia,serif}
+  .en{font-family:"Playfair Display",Georgia,serif;letter-spacing:.14em;text-transform:uppercase}
+
+  /* ===== 封面 ===== */
+  .cover{flex:1;display:flex;flex-direction:column;justify-content:center;text-align:center;animation:fade .8s ease both}
+  .label{font-size:11px;letter-spacing:.36em;color:var(--plum);opacity:.75;margin-bottom:26px}
+  .label::before,.label::after{content:"";display:inline-block;width:26px;height:1px;background:var(--line);vertical-align:middle;margin:0 12px 2px}
+  .cover h1{
+    font-size:clamp(30px,7.8vw,40px);line-height:1.42;margin:0 0 18px;font-weight:600;letter-spacing:.02em;
+  }
+  .cover h1 em{font-style:normal;color:var(--plum)}
+  .sub{font-size:14px;color:var(--ink-2);letter-spacing:.06em;line-height:2;margin:0 auto 44px;max-width:19em}
+  .rule{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:0 0 34px}
+  .meta{font-size:11px;letter-spacing:.22em;color:var(--ink-2);opacity:.7;margin-bottom:30px}
+  .btn{
+    display:block;width:100%;border:none;cursor:pointer;
+    background:var(--plum);color:#fdf8ef;
+    font-family:inherit;font-size:16px;letter-spacing:.22em;font-weight:500;
+    padding:19px 0 20px;border-radius:3px;
+    box-shadow:0 14px 28px -14px rgba(90,47,69,.6);
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .btn:hover{background:#4b2439;box-shadow:0 18px 32px -14px rgba(90,47,69,.65)}
+  .btn:active{transform:translateY(1px) scale(.995)}
+  .btn.ghost{
+    background:transparent;color:var(--plum);border:1px solid var(--line);
+    box-shadow:none;font-size:13px;letter-spacing:.2em;padding:15px 0;
+  }
+  .btn.ghost:hover{background:rgba(90,47,69,.05);box-shadow:none}
+  .foot{margin-top:26px;font-size:10px;letter-spacing:.14em;color:var(--ink-2);opacity:.55}
+
+  /* ===== 测试 ===== */
+  .quiz{flex:1;display:flex;flex-direction:column;animation:fade .5s ease both}
+  .topbar{display:flex;align-items:center;justify-content:space-between;font-size:11px;letter-spacing:.18em;color:var(--ink-2)}
+  .topbar .idx{color:var(--plum);font-weight:500}
+  .bar{height:2px;background:rgba(43,35,42,.1);margin:14px 0 0;border-radius:2px;overflow:hidden}
+  .bar span{display:block;height:100%;width:0;background:var(--wisteria);transition:width .35s ease}
+  .q{margin:clamp(34px,7vh,58px) 0 26px}
+  .q .num{font-size:10px;letter-spacing:.3em;color:var(--wisteria);margin-bottom:12px}
+  .q h2{font-size:clamp(20px,5vw,24px);line-height:1.6;font-weight:600;margin:0;letter-spacing:.01em}
+  .opts{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+  .opt{
+    display:flex;gap:13px;align-items:flex-start;text-align:left;
+    background:var(--card);border:1px solid var(--line);border-radius:3px;
+    padding:15px 16px;cursor:pointer;font-family:inherit;font-size:14.5px;line-height:1.65;color:var(--ink);
+    transition:border-color .18s ease, transform .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+  .opt .k{
+    flex:0 0 auto;width:20px;height:20px;border:1px solid var(--line);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;color:var(--plum);font-family:"Playfair Display",serif;margin-top:2px;
+    transition:all .18s ease;
+  }
+  .opt:hover{border-color:rgba(90,47,69,.4);transform:translateY(-1px);box-shadow:0 10px 20px -16px rgba(43,35,42,.5)}
+  .opt.on{background:#fdf5ea;border-color:var(--wisteria);box-shadow:inset 0 0 0 1px rgba(139,119,166,.4)}
+  .opt.on .k{background:var(--plum);color:#fdf8ef;border-color:var(--plum)}
+  .back{
+    align-self:flex-start;background:none;border:none;color:var(--ink-2);font-family:inherit;
+    font-size:11px;letter-spacing:.2em;padding:10px 0;cursor:pointer;opacity:.6;margin-top:18px;
+  }
+  .back:hover{opacity:1}
+
+  /* ===== 结果 ===== */
+  .result{flex:1;animation:fade .6s ease both}
+  .badge{text-align:center;font-size:10px;letter-spacing:.34em;color:var(--plum);opacity:.8}
+  .portrait{
+    width:min(62vw,240px);margin:22px auto 0;position:relative;
+    border-radius:8px;overflow:hidden;background:var(--cream-2);
+    box-shadow:0 26px 46px -26px rgba(43,35,42,.55);
+  }
+  .portrait::after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.55);border-radius:8px;pointer-events:none}
+  .portrait{aspect-ratio:3/4}
+  .shot{background-size:cover;background-repeat:no-repeat;background-position:center 16%}
+  .shot.bree{background-image:url("assets/bree.jpg");background-position:55% 18%}
+  .shot.gaby{background-image:url("assets/gaby.jpg");background-position:47% 22%}
+  .shot.lynette{background-image:url("assets/lynette.jpg");background-position:center 10%}
+  .shot.katherine{background-image:url("assets/katherine.jpg");background-position:center 14%}
+  .shot.susan{background-image:url("assets/susan.jpg");background-position:68% 16%}
+  .shot.angie{background-image:url("assets/angie.jpg");background-position:center 12%}
+  .shot.edie{background-image:url("assets/edie.jpg");background-position:center 10%}
+  .shot.julie{background-image:url("assets/julie.jpg");background-position:center 10%}
+  .names{text-align:center;margin:22px 0 0}
+  .names .cn{font-size:clamp(26px,7vw,32px);font-weight:600;letter-spacing:.04em;line-height:1.3}
+  .names .py{font-size:12px;letter-spacing:.2em;color:var(--ink-2);margin-top:8px}
+  .role{text-align:center;font-size:12px;letter-spacing:.08em;color:var(--plum);opacity:.85;margin-top:10px}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:30px 0 26px}
+  .para{font-size:15px;line-height:2.05;color:var(--ink);text-align:justify;margin:0;letter-spacing:.01em}
+  .law{
+    margin:26px 0 0;padding:16px 18px;background:rgba(255,250,242,.8);
+    border-left:2px solid var(--wisteria);border-radius:0 3px 3px 0;
+  }
+  .law .t{font-size:10px;letter-spacing:.26em;color:var(--wisteria);margin-bottom:7px}
+  .law .c{font-size:14px;line-height:1.9;color:var(--ink)}
+  .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:24px}
+  .tag{font-size:11px;letter-spacing:.1em;color:var(--plum);border:1px solid var(--line);border-radius:20px;padding:5px 12px}
+  .footnote{font-size:10px;letter-spacing:.08em;color:var(--ink-2);opacity:.5;text-align:center;margin-top:26px;line-height:1.8}
+
+  /* ===== 图鉴 ===== */
+  .gallery{flex:1;animation:fade .5s ease both}
+  .gallery h2{font-size:22px;font-weight:600;margin:0 0 6px;text-align:center;letter-spacing:.04em}
+  .gallery .lead{text-align:center;font-size:11px;letter-spacing:.2em;color:var(--ink-2);opacity:.7;margin-bottom:26px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .gc{background:var(--card);border:1px solid var(--line);border-radius:4px;overflow:hidden;cursor:pointer;transition:transform .18s ease, box-shadow .18s ease}
+  .gc:hover{transform:translateY(-2px);box-shadow:0 16px 26px -18px rgba(43,35,42,.5)}
+  .gc .thumb{display:block;width:100%;aspect-ratio:1/1}
+  .gc .info{padding:11px 12px 13px}
+  .gc .info .n{font-size:15px;font-weight:600;letter-spacing:.03em}
+  .gc .info .e{font-size:9px;letter-spacing:.16em;color:var(--ink-2);margin-top:3px}
+  .gc .info .r{font-size:11px;color:var(--plum);opacity:.8;margin-top:6px;line-height:1.6;letter-spacing:.02em}
+  .gback{margin-top:22px}
+
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (max-width:360px){
+    .opt{font-size:13.5px;padding:13px 14px}
+    .grid{gap:10px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<!-- 静态图片引用：确保打包时八张人物图都被包含 -->
+<div style="position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;opacity:0" aria-hidden="true">
+  <img src="assets/bree.jpg" alt="">
+  <img src="assets/gaby.jpg" alt="">
+  <img src="assets/lynette.jpg" alt="">
+  <img src="assets/katherine.jpg" alt="">
+  <img src="assets/susan.jpg" alt="">
+  <img src="assets/angie.jpg" alt="">
+  <img src="assets/edie.jpg" alt="">
+  <img src="assets/julie.jpg" alt="">
+</div>
+
+<script>
+/* ===== 数据：八位主妇 ===== */
+const CHARS = {
+  bree: {
+    cn: "布里", en: "Bree Van de Kamp", img: "assets/bree.jpg", pos: "55% 18%",
+    role: "紫藤巷的完美主妇 · 烹饪、园艺、家政全能",
+    desc: "她的餐桌永远对称，花园永远修到毫米，情绪永远收在围裙口袋里。她不是没有痛，只是痛也要摆盘。婚姻塌过、孩子反过、酒瓶握过，她最后还是活成了自己那套标准的主人。你和她的重合点：撑住场面是本能，也是枷锁。",
+    law: "只要还有一道菜没出错，这一天就没有真的崩。",
+    tags: ["完美主义", "秩序感", "体面"]
+  },
+  gaby: {
+    cn: "盖比", en: "Gabrielle Solis", img: "assets/gaby.jpg", pos: "47% 22%",
+    role: "前模特 · 这条街上最务实的人",
+    desc: "她把漂亮当资本，从不假装自己不想要好东西。懒、爱钱、理直气壮，但关键时刻护得住自己人。你和她的重合点：明白体面不能当饭吃，也知道替自己开口不叫自私。",
+    law: "先让自己过得好，才有余力对别人好。",
+    tags: ["坦率的欲望", "现实", "护短"]
+  },
+  lynette: {
+    cn: "勒奈特", en: "Lynette Scavo", img: "assets/lynette.jpg", pos: "center 10%",
+    role: "前广告公司高管 · 四个孩子的妈",
+    desc: "她一个人能顶一支队伍，在饭桌、会议室和病房之间来回切换。她最痛的不是累，是没人看见我做了多少。你和她的重合点：被生活追着跑，嘴上抱怨，手上不停，最后总能把事情办成。",
+    law: "抱怨归抱怨，事情还是我来。",
+    tags: ["战斗力", "算账", "硬撑"]
+  },
+  katherine: {
+    cn: "凯瑟琳", en: "Katherine Mayfair", img: "assets/katherine.jpg", pos: "center 14%",
+    role: "搬回来的老住户 · 餐饮生意人",
+    desc: "她把自己收得很紧，也笑，但从不交出底牌。有一段过去必须埋掉，有一段感情把自己逼到墙角。你和她的重合点：宁可难堪，也不肯失控；宁可孤独，也不肯先低头。",
+    law: "我可以输，但不能被看穿。",
+    tags: ["控制", "底牌", "不肯先低头"]
+  },
+  susan: {
+    cn: "苏珊", en: "Susan Mayer", img: "assets/susan.jpg", pos: "68% 16%",
+    role: "单身母亲 · 插画师 · 爱情至上主义者",
+    desc: "她能把钥匙锁在屋里、把梯子点着、把自己摔进灌木丛，然后笑着站起来。她笨得让人着急，也真得让人放下防备。你和她的重合点：情绪写在脸上，爱一个人藏不住，被推倒很多次还愿意再信一次。",
+    law: "搞砸了也没关系，反正我还会再试一次。",
+    tags: ["笨拙的真诚", "恋爱脑", "复原力"]
+  },
+  angie: {
+    cn: "安吉", en: "Angie Bolen", img: "assets/angie.jpg", pos: "center 12%",
+    role: "搬进老房子的新邻居 · 过去另有版本",
+    desc: "她说话直、不解释、不怕难听。守家守得凶，因为她清楚自己是从什么地方逃出来的。你和她的重合点：看起来不好接近，其实是把全部的软都留给了极少数人。",
+    law: "我家的事，我说了算。",
+    tags: ["守门人", "边界感", "狠得有理"]
+  },
+  edie: {
+    cn: "伊迪", en: "Edie Britt", img: "assets/edie.jpg", pos: "center 10%",
+    role: "房产经纪 · 最不受欢迎也最不好忽略的人",
+    desc: "她想要什么就说什么，抢到了也不道歉。体面人瞧不上她，可每次出事，最先说真话的往往是她。你和她的重合点：不怕被讨厌，因为讨好所有人太耗人了。",
+    law: "不喜欢我，是你的事。",
+    tags: ["直白", "不服软", "生命力"]
+  },
+  julie: {
+    cn: "朱莉", en: "Julie Mayer", img: "assets/julie.jpg", pos: "center 10%",
+    role: "苏珊的女儿 · 这条街上最早看穿一切的人",
+    desc: "她从小就在给大人收尾，聪明、冷静，话说一半就够。她试过离开这条街，也试过彻底变成另一个自己。你和她的重合点：那种太早懂事的人，看得清，也不得不装看不清。",
+    law: "我什么都明白，只是不说。",
+    tags: ["早熟", "观察者", "离家与回来"]
+  }
+};
+
+/* ===== 数据：20 题 ===== */
+const QS = [
+  { q:"搬进紫藤巷第一天，邻居端着一盘点心站在门口。你——", o:[
+    ["先看盘子干不干净，再决定吃不吃","bree"],
+    ["接过来，顺口打听哪家美甲店最好","gaby"],
+    ["一边接一边盘算回礼，不欠人情也不吃亏","lynette"],
+    ["笑得很暖，等她转身就把门关好","katherine"]
+  ]},
+  { q:"你家前院最像什么？", o:[
+    ["车比花贵，花只是背景板","gaby"],
+    ["玩具、球鞋、一只没人认领的滑板车","lynette"],
+    ["看不出主人是谁，也看不出住着几个人","angie"],
+    ["我妈的心血，我负责站在门口看戏","julie"]
+  ]},
+  { q:"半夜翻到伴侣手机里一条暧昧短信。", o:[
+    ["不吵，先把家里的账目和保单理清楚","bree"],
+    ["截图存好，等一个最合适的时机","lynette"],
+    ["直接问，问完再决定要不要闹","edie"],
+    ["手抖着删掉，然后自己一夜没睡","susan"]
+  ]},
+  { q:"聚会上有人当众戳你的痛处。", o:[
+    ["笑着回一句更体面的，让她自己难堪","bree"],
+    ["用更狠的玩笑顶回去，全场笑，她笑不出来","edie"],
+    ["不接话，回家把这个人从名单里划掉","katherine"],
+    ["假装没听懂，回家路上才想起该说什么","susan"]
+  ]},
+  { q:"你的冰箱里最不可能缺的是——", o:[
+    ["按颜色排好的玻璃保鲜盒","bree"],
+    ["冰镇香槟和面膜","gaby"],
+    ["用保鲜袋包好的现金","angie"],
+    ["妈妈炖的汤，和一堆过期酸奶","julie"]
+  ]},
+  { q:"你最怕别人说你什么？", o:[
+    ["你家也不过如此","bree"],
+    ["你不过是靠脸","gaby"],
+    ["你什么都要管","katherine"],
+    ["你总是搞砸","susan"]
+  ]},
+  { q:"家里突然出事，你第一反应是——", o:[
+    ["先算人手、时间和钱，能解决的事都不算事","lynette"],
+    ["先哭，哭完打给最靠谱的那个人","susan"],
+    ["先把门锁上，别让邻居看见","angie"],
+    ["先看我妈的脸色，再决定我要不要慌","julie"]
+  ]},
+  { q:"婚姻里你最不能忍——", o:[
+    ["被当成摆设，没人记得你也想要东西","gaby"],
+    ["你做的事，没有人看见","lynette"],
+    ["有人背着你，和别人共享一个秘密","katherine"],
+    ["被欺骗，还被要求体面","edie"]
+  ]},
+  { q:"新邻居打听你的过去。", o:[
+    ["换个话题，聊她的包","gaby"],
+    ["笑着说，我这种人没有过去","edie"],
+    ["回一句你问这个做什么，气氛立刻冷","angie"],
+    ["半真半假讲个故事，把自己藏进去","julie"]
+  ]},
+  { q:"你发现邻居家有个不能说的事。", o:[
+    ["我会知道，但我会表现得什么都不知道","bree"],
+    ["我会一直盯着，等它自己露出来","katherine"],
+    ["我会不小心说漏嘴，然后后悔","susan"],
+    ["我不管别人家的事，除非它冲我来了","angie"]
+  ]},
+  { q:"你和最亲的那个人的关系——", o:[
+    ["我爱你，但我更想把你修好","bree"],
+    ["我拿你当队友，也拿你当对手","lynette"],
+    ["我把你当朋友，你不许长大","susan"],
+    ["我比你以为的清醒，也比你以为的累","julie"]
+  ]},
+  { q:"一笔不属于你的钱出现在你面前。", o:[
+    ["先花，再想怎么解释","gaby"],
+    ["先查清它是谁的，再决定要不要","katherine"],
+    ["拿走，但记着这笔账迟早要还","angie"],
+    ["拿走，并且不觉得需要解释","edie"]
+  ]},
+  { q:"深夜三点你还醒着，你在想——", o:[
+    ["明天的餐桌怎么摆，才不让人看出破绽","bree"],
+    ["那年那件事，如果当时我选了另一边","katherine"],
+    ["他今天那句话到底是什么意思","susan"],
+    ["我到底想过谁的人生","julie"]
+  ]},
+  { q:"关于事业，你——", o:[
+    ["我要的是被看见，不只是被需要","gaby"],
+    ["我能一个人干三个人的活，但不想再证明一次","lynette"],
+    ["我要的是说了算","katherine"],
+    ["我想先弄清楚，我到底喜欢什么","julie"]
+  ]},
+  { q:"你的生日——", o:[
+    ["提前一周准备，桌面、餐具、座位卡都要对","bree"],
+    ["我要热闹，要有人围着我，要有人记得","edie"],
+    ["一碗面，家里人齐就行，别搞仪式","angie"],
+    ["不告诉任何人，自己去看一场电影","julie"]
+  ]},
+  { q:"你的社交账号——", o:[
+    ["只发好看的那一面，评论区我自己挑","edie"],
+    ["精修、滤镜、最好那条","gaby"],
+    ["三年不发一条，发了也没人知道是我","katherine"],
+    ["只发家里的菜和院子，别的都不让看","angie"]
+  ]},
+  { q:"邻居家半夜传出尖叫。", o:[
+    ["披上外套就过去，先救人再问为什么","lynette"],
+    ["拎着钥匙冲出去，跑一半才想起该报警","susan"],
+    ["站到窗边看一眼，确认声音从哪来","angie"],
+    ["先拍下来，明天这条街就有话可说了","edie"]
+  ]},
+  { q:"你哭的时候——", o:[
+    ["一个人哭，哭完补好妆","gaby"],
+    ["在车里哭，哭完回家做饭","lynette"],
+    ["边哭边打电话，一定要有人听见","susan"],
+    ["哭完写下来，提醒自己别再来一遍","julie"]
+  ]},
+  { q:"你最不能原谅的是——", o:[
+    ["有人在我的厨房里，动了我的规矩","bree"],
+    ["有人骗我，还以为我不知道","katherine"],
+    ["有人拿我的真心当笑话","edie"],
+    ["有人替我决定我该过什么生活","julie"]
+  ]},
+  { q:"如果能重来一次——", o:[
+    ["我还是选这条路，只是这次我要先说清楚","lynette"],
+    ["我会更早离开，也不会带任何人一起走","angie"],
+    ["我不会再等那个人回头","edie"],
+    ["我会早一点相信自己，而不是等谁来救我","susan"]
+  ]}
+];
+
+const ORDER = ["bree","gaby","lynette","katherine","susan","angie","edie","julie"];
+const LETTER = ["A","B","C","D"];
+const state = { i: 0, answers: new Array(QS.length).fill(null), locked: false };
+const app = document.getElementById("app");
+
+/* ===== 计分 ===== */
+function score(){
+  const tally = {};
+  ORDER.forEach(k => tally[k] = 0);
+  state.answers.forEach((k, idx) => { if (k) tally[k]++; });
+  let best = 0;
+  ORDER.forEach(k => { if (tally[k] > best) best = tally[k]; });
+  let cands = ORDER.filter(k => tally[k] === best);
+  if (cands.length > 1){
+    [0, 12, 19].forEach(idx => {
+      const a = state.answers[idx];
+      if (a && cands.includes(a) && cands.length > 1) cands = [a];
+    });
+  }
+  return cands[0] || ORDER[0];
+}
+
+/* ===== 视图 ===== */
+function cover(){
+  app.innerHTML = `
+    <section class="cover">
+      <div class="label">紫藤巷 · 人格测试</div>
+      <h1 class="serif">测一测，你是<br><em>绝望主妇</em>里的谁？</h1>
+      <p class="sub">你以为你在经营生活，<br>其实是生活一直在经营你。</p>
+      <div class="rule"></div>
+      <div class="meta">20 题 &nbsp;·&nbsp; 约 2 分钟 &nbsp;·&nbsp; 8 位主妇</div>
+      <button class="btn" id="start">点击测试</button>
+      <div class="foot">人物出自电视剧《绝望主妇》&nbsp;/&nbsp;结果仅供娱乐</div>
+    </section>`;
+  document.getElementById("start").onclick = () => { state.i = 0; state.answers.fill(null); quiz(); };
+}
+
+function quiz(){
+  const cur = QS[state.i];
+  const done = state.answers.filter(Boolean).length;
+  app.innerHTML = `
+    <section class="quiz">
+      <div class="topbar">
+        <span class="idx serif">${String(state.i + 1).padStart(2,"0")} / 20</span>
+        <span>${done} ANSWERED</span>
+      </div>
+      <div class="bar"><span style="width:${(state.i) / QS.length * 100}%"></span></div>
+      <div class="q">
+        <div class="num">QUESTION ${String(state.i + 1).padStart(2,"0")}</div>
+        <h2 class="serif">${cur.q}</h2>
+      </div>
+      <div class="opts" id="opts">
+        ${cur.o.map((it, idx) => `
+          <button class="opt ${state.answers[state.i] === it[1] ? "on" : ""}" data-k="${it[1]}">
+            <span class="k">${LETTER[idx]}</span><span>${it[0]}</span>
+          </button>`).join("")}
+      </div>
+      ${state.i > 0 ? `<button class="back" id="back">← 上一题</button>` : ``}
+    </section>`;
+
+  const bar = app.querySelector(".bar span");
+  requestAnimationFrame(() => { bar.style.width = ((state.i) / QS.length * 100) + "%"; });
+
+  app.querySelectorAll(".opt").forEach(el => {
+    el.onclick = () => {
+      if (state.locked) return;
+      state.locked = true;
+      el.classList.add("on");
+      state.answers[state.i] = el.dataset.k;
+      setTimeout(() => {
+        state.locked = false;
+        if (state.i === QS.length - 1){ result(); }
+        else { state.i++; quiz(); }
+      }, 240);
+    };
+  });
+
+  const backBtn = document.getElementById("back");
+  if (backBtn) backBtn.onclick = () => { if (state.i > 0 && !state.locked){ state.i--; quiz(); } };
+}
+
+function result(){
+  const key = score();
+  const c = CHARS[key];
+  const tally = {};
+  ORDER.forEach(k => tally[k] = 0);
+  state.answers.forEach(k => { if (k) tally[k]++; });
+  app.innerHTML = `
+    <section class="result">
+      <div class="badge">YOUR WISTERIA LANE</div>
+      <div class="portrait shot ${key}" role="img" aria-label="${c.cn}"></div>
+      <div class="names">
+        <div class="cn serif">${c.cn}</div>
+        <div class="py en">${c.en}</div>
+        <div class="role">${c.role}</div>
+      </div>
+      <div class="divider"></div>
+      <p class="para serif">${c.desc}</p>
+      <div class="law">
+        <div class="t">你的生存法则</div>
+        <div class="c serif">${c.law}</div>
+      </div>
+      <div class="tags">${c.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+      <div class="divider"></div>
+      <button class="btn ghost" id="gallery">看看其他七位主妇 →</button>
+      <button class="btn" id="again" style="margin-top:10px">再测一次</button>
+      <div class="footnote">你与 ${c.cn} 的重合度 ${tally[key]} / 20<br>人物出自电视剧《绝望主妇》· 结果仅供娱乐</div>
+    </section>`;
+  document.getElementById("again").onclick = () => { state.i = 0; state.answers.fill(null); quiz(); };
+  document.getElementById("gallery").onclick = () => gallery(key);
+}
+
+function gallery(mine){
+  const list = mine ? ORDER.filter(k => k !== mine).concat([mine]) : ORDER;
+  app.innerHTML = `
+    <section class="gallery">
+      <h2 class="serif">八位主妇图鉴</h2>
+      <div class="lead">${mine ? "你的结果是高亮的那一位" : "紫藤巷的常住人口"}</div>
+      <div class="grid">
+        ${list.map(k => `
+          <div class="gc" data-k="${k}" style="${k === mine ? "border-color:var(--wisteria);box-shadow:inset 0 0 0 1px rgba(139,119,166,.35)" : ""}">
+            <div class="thumb shot ${k}" role="img" aria-label="${CHARS[k].cn}"></div>
+            <div class="info">
+              <div class="n serif">${CHARS[k].cn}${k === mine ? " · 你" : ""}</div>
+              <div class="e en">${CHARS[k].en}</div>
+              <div class="r">${CHARS[k].tags.join(" / ")}</div>
+            </div>
+          </div>`).join("")}
+      </div>
+      <button class="btn ghost gback" id="backCover">回到封面</button>
+    </section>`;
+  app.querySelectorAll(".gc").forEach(el => {
+    el.onclick = () => {
+      const c = CHARS[el.dataset.k];
+      app.innerHTML = `
+        <section class="result">
+          <div class="badge">WISTERIA LANE</div>
+          <div class="portrait shot ${el.dataset.k}" role="img" aria-label="${c.cn}"></div>
+          <div class="names">
+            <div class="cn serif">${c.cn}</div>
+            <div class="py en">${c.en}</div>
+            <div class="role">${c.role}</div>
+          </div>
+          <div class="divider"></div>
+          <p class="para serif">${c.desc}</p>
+          <div class="law"><div class="t">她的生存法则</div><div class="c serif">${c.law}</div></div>
+          <div class="tags">${c.tags.map(t => `<span class="tag">${t}</span>`).join("")}</div>
+          <div class="divider"></div>
+          <button class="btn ghost" id="backG">← 回到图鉴</button>
+        </section>`;
+      document.getElementById("backG").onclick = () => gallery(mine);
+    };
+  });
+  document.getElementById("backCover").onclick = () => { state.i = 0; state.answers.fill(null); cover(); };
+}
+
+cover();
+</script>
+</body>
+</html>
